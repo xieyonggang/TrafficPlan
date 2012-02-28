@@ -30,7 +30,8 @@ import java.awt.Color;
 public interface GraphicsConfigurationParameters {
     public static final Color BACKGROUND_COLOR = new Color(230, 230, 230);
 
-    public static final Color BACKGROUND_COLOR_SIM = new Color(0x74, 0xac, 0x23); // green grass
+    public static final Color BACKGROUND_COLOR_SIM = new Color(250, 250, 250); 
+//    public static final Color BACKGROUND_COLOR_SIM = new Color(0x74, 0xac, 0x23); // green grass
     // public static final Color BACKGROUND_COLOR_SIM = new Color(214, 217, 223); // Nimbus
 
     final double INITIAL_SCALE = 1.0 / Math.sqrt(2);

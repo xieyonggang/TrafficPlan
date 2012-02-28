@@ -41,6 +41,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 
+import org.movsim.simulator.vehicles.longitudinalmodel.acceleration.CCS;
+import org.movsim.simulator.vehicles.longitudinalmodel.acceleration.CCS.Waves;
 import org.movsim.utilities.FileUtils;
 import org.movsim.viewer.graphics.GraphicsConfigurationParameters;
 import org.movsim.viewer.graphics.TrafficCanvasScenarios.Scenario;
@@ -303,9 +305,48 @@ public class MovSimMenu extends JPanel {
                 canvasPanel.trafficCanvas.setxOffset(400);
                 canvasPanel.trafficCanvas.setyOffset(700);
                 canvasPanel.trafficCanvas.setDrawSources(false);
+                CCS.setWave(Waves.NOWAVE);
             }
         });
         scenarioMenu.add(menuItemVasaLoppet);
+        
+        final JMenuItem menuItemVasaLoppetThreeWaves = new JMenuItem(new AbstractAction(
+                resourceBundle.getString("VasaloppetThreeWaves")) {
+
+            private static final long serialVersionUID = 4633365854029111923L;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                canvasPanel.trafficCanvas.setupTrafficScenario(Scenario.VASALOPPET);
+                uiDefaultReset();
+                canvasPanel.trafficCanvas.setVmaxForColorSpectrum(22);
+                canvasPanel.trafficCanvas.setSleepTime(0);
+                canvasPanel.trafficCanvas.setxOffset(400);
+                canvasPanel.trafficCanvas.setyOffset(700);
+                canvasPanel.trafficCanvas.setDrawSources(false);
+                CCS.setWave(Waves.THREEWAVES);
+            }
+        });
+        scenarioMenu.add(menuItemVasaLoppetThreeWaves);
+        
+        final JMenuItem menuItemVasaLoppetTenWaves = new JMenuItem(new AbstractAction(
+                resourceBundle.getString("VasaloppetTenWaves")) {
+
+            private static final long serialVersionUID = 4633365854029111923L;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                canvasPanel.trafficCanvas.setupTrafficScenario(Scenario.VASALOPPET);
+                uiDefaultReset();
+                canvasPanel.trafficCanvas.setVmaxForColorSpectrum(22);
+                canvasPanel.trafficCanvas.setSleepTime(0);
+                canvasPanel.trafficCanvas.setxOffset(400);
+                canvasPanel.trafficCanvas.setyOffset(700);
+                canvasPanel.trafficCanvas.setDrawSources(false);
+                CCS.setWave(Waves.TENWAVES);
+            }
+        });
+        scenarioMenu.add(menuItemVasaLoppetTenWaves);
         
 
         menuItemRoundAbout.setEnabled(false);

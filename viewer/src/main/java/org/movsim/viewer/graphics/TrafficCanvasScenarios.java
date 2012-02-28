@@ -171,7 +171,7 @@ public class TrafficCanvasScenarios extends TrafficCanvas {
             setSleepTime(0);
             setVmaxForColorSpectrum(22);
             setxOffset(400);
-            setyOffset(700);
+            setyOffset(1100);
             setDrawSources(false);
             roadLineColor = Color.LIGHT_GRAY;
             roadEdgeColor = Color.DARK_GRAY;

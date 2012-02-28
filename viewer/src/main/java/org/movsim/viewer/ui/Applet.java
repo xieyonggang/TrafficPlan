@@ -14,6 +14,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.apache.log4j.PropertyConfigurator;
 import org.movsim.input.ProjectMetaData;
 import org.movsim.simulator.Simulator;
+import org.movsim.simulator.vehicles.longitudinalmodel.acceleration.CCS;
+import org.movsim.simulator.vehicles.longitudinalmodel.acceleration.CCS.Waves;
 import org.movsim.viewer.util.LocalizationStrings;
 
 public class Applet extends JApplet {
@@ -38,8 +40,8 @@ public class Applet extends JApplet {
         final ProjectMetaData projectMetaData = ProjectMetaData.getInstance();
         projectMetaData.setXmlFromResources(true);
         projectMetaData.setInstantaneousFileOutput(false);
-        projectMetaData.setProjectName("cloverleaf");
-        projectMetaData.setPathToProjectXmlFile("/sim/buildingBlocks/");
+        projectMetaData.setProjectName("vasa_CCS");
+        projectMetaData.setPathToProjectXmlFile("/sim/examples/");
 
         final Simulator simulator = new Simulator(projectMetaData);
         initLookAndFeel();
@@ -61,16 +63,22 @@ public class Applet extends JApplet {
 //            }
 //        });
 
-        this.setSize(1280, 800);
-        this.resize(1280, 800);
-        canvasPanel.setSize(1280, 800);
-        canvasPanel.trafficCanvas.setSize(1280, 800);
+        this.setSize(1280, 1200);
+        this.resize(1280, 1200);
+        canvasPanel.setSize(1280, 1200);
+        canvasPanel.trafficCanvas.setSize(1280, 1200);
 
         canvasPanel.resized();
         canvasPanel.repaint();
         
         statusPanel.setWithProgressBar(false);
         simulator.loadScenarioFromXml(projectMetaData.getProjectName(), projectMetaData.getPathToProjectXmlFile());
+        canvasPanel.trafficCanvas.setVmaxForColorSpectrum(22);
+        canvasPanel.trafficCanvas.setSleepTime(0);
+        canvasPanel.trafficCanvas.setxOffset(400);
+        canvasPanel.trafficCanvas.setyOffset(800);
+        canvasPanel.trafficCanvas.setDrawSources(false);
+        CCS.setWave(Waves.NOWAVE);
         canvasPanel.trafficCanvas.reset();
         canvasPanel.trafficCanvas.start();
         statusPanel.reset();

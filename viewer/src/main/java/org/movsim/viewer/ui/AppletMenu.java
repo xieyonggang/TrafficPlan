@@ -1,5 +1,6 @@
 package org.movsim.viewer.ui;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.util.EventObject;
 import java.util.ResourceBundle;
@@ -12,6 +13,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.movsim.simulator.vehicles.longitudinalmodel.acceleration.CCS;
+import org.movsim.simulator.vehicles.longitudinalmodel.acceleration.CCS.Waves;
 import org.movsim.viewer.graphics.GraphicsConfigurationParameters;
 import org.movsim.viewer.util.SwingHelper;
 
@@ -44,271 +47,88 @@ public class AppletMenu extends JPanel {
 
         final JMenu scenarioMenu = scenarioMenu();
         final JMenu helpMenu = helpMenu();
-        final JMenu modelMenu = modelMenu();
+        // final JMenu modelMenu = modelMenu();
         final JMenu viewMenu = viewMenu();
-        final JMenu outputMenu = outputMenu();
+        // final JMenu outputMenu = outputMenu();
 
         menuBar.add(scenarioMenu);
-        menuBar.add(modelMenu);
-        menuBar.add(outputMenu);
+        // menuBar.add(modelMenu);
+        // menuBar.add(outputMenu);
         menuBar.add(viewMenu);
         menuBar.add(helpMenu);
 
         frame.setJMenuBar(menuBar);
     }
 
-    private JMenu outputMenu() {
-        final JMenu outputMenu = new JMenu((String) resourceBundle.getObject("OutputMenu"));
-
-        final JCheckBoxMenuItem menuItemTravelTime = new JCheckBoxMenuItem(new AbstractAction(
-                (String) resourceBundle.getObject("TravelTime")) {//$NON-NLS-1$
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        handleTravelTimeDiagram(actionEvent);
-                    }
-                });
-        outputMenu.add(menuItemTravelTime);
-        final JCheckBoxMenuItem menuItemDetectors = new JCheckBoxMenuItem(new AbstractAction(
-                (String) resourceBundle.getObject("Detectors")) {//$NON-NLS-1$
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        handleDetectorsDiagram(actionEvent);
-                    }
-                });
-        outputMenu.add(menuItemDetectors);
-        final JCheckBoxMenuItem menuItemFloatingCars = new JCheckBoxMenuItem(new AbstractAction(
-                (String) resourceBundle.getObject("FloatingCars")) {//$NON-NLS-1$
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        handleFloatingCarsDiagram(actionEvent);
-                    }
-                });
-        outputMenu.add(menuItemFloatingCars);
-        final JCheckBoxMenuItem menuItemSpatioTemporalContour = new JCheckBoxMenuItem(new AbstractAction(
-                (String) resourceBundle.getObject("SpatioTemporal")) {//$NON-NLS-1$
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        handleSpatioTemporalDiagram(actionEvent);
-                    }
-                });
-        outputMenu.add(menuItemSpatioTemporalContour);
-        final JCheckBoxMenuItem menuItemFuelConsumption = new JCheckBoxMenuItem(new AbstractAction(
-                (String) resourceBundle.getObject("FuelConsumption")) {//$NON-NLS-1$
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        handleFuelConsumptionDiagram(actionEvent);
-                    }
-                });
-        outputMenu.add(menuItemFuelConsumption);
-
-        menuItemDetectors.setEnabled(false);
-        menuItemFloatingCars.setEnabled(false);
-        menuItemFuelConsumption.setEnabled(false);
-        menuItemSpatioTemporalContour.setEnabled(false);
-        menuItemTravelTime.setEnabled(false);
-
-        return outputMenu;
-    }
-
     private JMenu scenarioMenu() {
         final JMenu scenarioMenu = new JMenu((String) resourceBundle.getObject("ScenarioMenu"));
-        final JMenuItem menuItemOnRamp = new JMenuItem(new AbstractAction(resourceBundle.getString("OnRamp")) {
-
-            private static final long serialVersionUID = 7705041304742695628L;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                canvasPanel.simulator.loadScenarioFromXml("onramp", "/sim/buildingBlocks/");
-                canvasPanel.trafficCanvas.reset();
-                canvasPanel.trafficCanvas.start();
-                statusPanel.reset();
-                uiDefaultReset();
-            }
-        });
-        scenarioMenu.add(menuItemOnRamp);
-
-        final JMenuItem menuItemOffRamp = new JMenuItem(new AbstractAction(resourceBundle.getString("OffRamp")) {
-
-            private static final long serialVersionUID = -2548920811907898064L;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                canvasPanel.simulator.loadScenarioFromXml("offramp", "/sim/buildingBlocks/");
-                canvasPanel.trafficCanvas.reset();
-                canvasPanel.trafficCanvas.start();
-                statusPanel.reset();
-                uiDefaultReset();
-            }
-        });
-        scenarioMenu.add(menuItemOffRamp);
-
-        final JMenuItem menuItemFlowConservingBottleNeck = new JMenuItem(new AbstractAction(
-                resourceBundle.getString("FlowConservingBottleNeck")) {
-
-            private static final long serialVersionUID = -8349549625085281487L;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                canvasPanel.simulator.loadScenarioFromXml("flow_conserving_bottleneck", "/sim/buildingBlocks/");
-                canvasPanel.trafficCanvas.reset();
-                canvasPanel.trafficCanvas.start();
-                statusPanel.reset();
-                uiDefaultReset();
-            }
-        });
-        scenarioMenu.add(menuItemFlowConservingBottleNeck);
-
-        final JMenuItem menuItemSpeedLimit = new JMenuItem(new AbstractAction(resourceBundle.getString("SpeedLimit")) {
-
-            private static final long serialVersionUID = -1498474459807551133L;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                canvasPanel.simulator.loadScenarioFromXml("speedlimit", "/sim/buildingBlocks/");
-                canvasPanel.trafficCanvas.reset();
-                canvasPanel.trafficCanvas.start();
-                statusPanel.reset();
-                uiDefaultReset();
-            }
-        });
-        scenarioMenu.add(menuItemSpeedLimit);
-
-        final JMenuItem menuItemTrafficLight = new JMenuItem(new AbstractAction(
-                resourceBundle.getString("TrafficLight")) {
-
-            private static final long serialVersionUID = 2511854387728111343L;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                canvasPanel.simulator.loadScenarioFromXml("trafficlight", "/sim/buildingBlocks/");
-                canvasPanel.trafficCanvas.reset();
-                canvasPanel.trafficCanvas.start();
-                statusPanel.reset();
-                uiDefaultReset();
-            }
-        });
-        scenarioMenu.add(menuItemTrafficLight);
-
-        final JMenuItem menuItemLaneClosing = new JMenuItem(
-                new AbstractAction(resourceBundle.getString("LaneClosing")) {
-
-                    private static final long serialVersionUID = -5359478839829791298L;
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        canvasPanel.simulator.loadScenarioFromXml("laneclosure", "/sim/buildingBlocks/");
-                        canvasPanel.trafficCanvas.reset();
-                        canvasPanel.trafficCanvas.start();
-                        statusPanel.reset();
-                        uiDefaultReset();
-                    }
-                });
-        scenarioMenu.add(menuItemLaneClosing);
-
-        final JMenuItem menuItemCloverLeaf = new JMenuItem(new AbstractAction(resourceBundle.getString("CloverLeaf")) {
-
-            private static final long serialVersionUID = 8504921708742771452L;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                canvasPanel.simulator.loadScenarioFromXml("cloverleaf", "/sim/buildingBlocks/");
-                canvasPanel.trafficCanvas.reset();
-                canvasPanel.trafficCanvas.start();
-                statusPanel.reset();
-                uiDefaultReset();
-            }
-        });
-        scenarioMenu.add(menuItemCloverLeaf);
-
-        final JMenuItem menuItemRoundAbout = new JMenuItem(new AbstractAction(resourceBundle.getString("RoundAbout")) {
-
-            private static final long serialVersionUID = 5468084978732943923L;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SwingHelper.notImplemented(canvasPanel);
-            }
-        });
-        scenarioMenu.add(menuItemRoundAbout);
-
-        final JMenuItem menuItemCityInterSection = new JMenuItem(new AbstractAction(
-                resourceBundle.getString("CityInterSection")) {
-
-            private static final long serialVersionUID = 3606709421278067399L;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SwingHelper.notImplemented(canvasPanel);
-            }
-        });
-        scenarioMenu.add(menuItemCityInterSection);
-
-        final JMenuItem menuItemRingRoad = new JMenuItem(new AbstractAction(resourceBundle.getString("RingRoad")) {
+        final JMenuItem menuItemVasaLoppet = new JMenuItem(new AbstractAction(resourceBundle.getString("Vasaloppet")) {
 
             private static final long serialVersionUID = 4633365854029111923L;
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                canvasPanel.simulator.loadScenarioFromXml("ringroad_1lane", "/sim/buildingBlocks/");
+                canvasPanel.simulator.loadScenarioFromXml("vasa_CCS", "/sim/examples/");
                 canvasPanel.trafficCanvas.reset();
                 canvasPanel.trafficCanvas.start();
                 statusPanel.reset();
                 uiDefaultReset();
+                canvasPanel.trafficCanvas.setVmaxForColorSpectrum(22);
+                canvasPanel.trafficCanvas.setSleepTime(0);
+                canvasPanel.trafficCanvas.setxOffset(400);
+                canvasPanel.trafficCanvas.setyOffset(700);
+                canvasPanel.trafficCanvas.setDrawSources(false);
+                CCS.setWave(Waves.NOWAVE);
             }
         });
-        scenarioMenu.add(menuItemRingRoad);
+        scenarioMenu.add(menuItemVasaLoppet);
 
-        final JMenuItem menuItemRingRoadTwoLanes = new JMenuItem(new AbstractAction(
-                resourceBundle.getString("RingRoad2Lanes")) {
+        final JMenuItem menuItemVasaLoppetThreeWaves = new JMenuItem(new AbstractAction(
+                resourceBundle.getString("VasaloppetThreeWaves")) {
 
             private static final long serialVersionUID = 4633365854029111923L;
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                canvasPanel.simulator.loadScenarioFromXml("ringroad_2lanes", "/sim/buildingBlocks/");
+                canvasPanel.simulator.loadScenarioFromXml("vasa_CCS", "/sim/examples/");
                 canvasPanel.trafficCanvas.reset();
                 canvasPanel.trafficCanvas.start();
                 statusPanel.reset();
                 uiDefaultReset();
+                canvasPanel.trafficCanvas.setVmaxForColorSpectrum(22);
+                canvasPanel.trafficCanvas.setSleepTime(0);
+                canvasPanel.trafficCanvas.setxOffset(400);
+                canvasPanel.trafficCanvas.setyOffset(1100);
+                canvasPanel.trafficCanvas.setDrawSources(false);
+                CCS.setWave(Waves.THREEWAVES);
             }
         });
-        scenarioMenu.add(menuItemRingRoadTwoLanes);
-        
-//        scenarioMenu.addSeparator();
-//        final JMenuItem menuItemVasaLoppet = new JMenuItem(new AbstractAction(
-//                resourceBundle.getString("Vasaloppet")) {
-//
-//            private static final long serialVersionUID = 4633365854029111923L;
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                canvasPanel.simulator.loadScenarioFromXml("vasa_CCS", "/sim/examples/");
-//                canvasPanel.trafficCanvas.reset();
-//                canvasPanel.trafficCanvas.start();
-//                statusPanel.reset();
-//                uiDefaultReset();
-//                canvasPanel.trafficCanvas.setVmaxForColorSpectrum(22);
-//                canvasPanel.trafficCanvas.setSleepTime(0);
-//                canvasPanel.trafficCanvas.setxOffset(400);
-//                canvasPanel.trafficCanvas.setyOffset(700);
-//                canvasPanel.trafficCanvas.setDrawSources(false);
-//            }
-//        });
-//        scenarioMenu.add(menuItemVasaLoppet);
-        
+        scenarioMenu.add(menuItemVasaLoppetThreeWaves);
 
-        menuItemRoundAbout.setEnabled(false);
-        menuItemCityInterSection.setEnabled(false);
+        final JMenuItem menuItemVasaLoppetTenWaves = new JMenuItem(new AbstractAction(
+                resourceBundle.getString("VasaloppetTenWaves")) {
+
+            private static final long serialVersionUID = 4633365854029111923L;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                canvasPanel.simulator.loadScenarioFromXml("vasa_CCS", "/sim/examples/");
+                canvasPanel.trafficCanvas.reset();
+                canvasPanel.trafficCanvas.start();
+                statusPanel.reset();
+                uiDefaultReset();
+                canvasPanel.trafficCanvas.setVmaxForColorSpectrum(22);
+                canvasPanel.trafficCanvas.setSleepTime(0);
+                canvasPanel.trafficCanvas.setxOffset(400);
+                canvasPanel.trafficCanvas.setyOffset(1100);
+                canvasPanel.trafficCanvas.setDrawSources(false);
+                CCS.setWave(Waves.TENWAVES);
+            }
+        });
+        scenarioMenu.add(menuItemVasaLoppetTenWaves);
+
+        // menuItemRoundAbout.setEnabled(false);
+        // menuItemCityInterSection.setEnabled(false);
 
         return scenarioMenu;
     }
@@ -417,23 +237,6 @@ public class AppletMenu extends JPanel {
         return viewMenu;
     }
 
-    private JMenu modelMenu() {
-        final JMenu modelMenu = new JMenu((String) resourceBundle.getObject("ModelMenu"));
-        final JMenuItem menuItemModelParameters = new JMenuItem(new AbstractAction(
-                (String) resourceBundle.getObject("ModelMenuViewParams")) {//$NON-NLS-1$
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        SwingHelper.notImplemented(canvasPanel);
-                    }
-                });
-        modelMenu.add(menuItemModelParameters);
-
-        menuItemModelParameters.setEnabled(false);
-        return modelMenu;
-    }
-
     private JMenu helpMenu() {
         final JMenu helpMenu = new JMenu((String) resourceBundle.getObject("HelpMenu")); //$NON-NLS-1$
 
@@ -500,10 +303,6 @@ public class AppletMenu extends JPanel {
         JOptionPane.showMessageDialog(canvasPanel, aboutString, titleString, JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private void handlePreferences(EventObject event) {
-        new ViewerPreferences(resourceBundle);
-    }
-
     protected void handleTravelTimeDiagram(ActionEvent actionEvent) {
         // final JCheckBoxMenuItem cb = (JCheckBoxMenuItem) actionEvent.getSource();
         // if (trafficUi.getStatusPanel().isWithTravelTimes()) {
@@ -552,12 +351,6 @@ public class AppletMenu extends JPanel {
 
     protected void handleFuelConsumptionDiagram(ActionEvent actionEvent) {
         SwingHelper.notImplemented(canvasPanel);
-    }
-
-    private void handleQuit(EventObject event) {
-        // canvasPanel.quit();
-        // frame.dispose();
-        // System.exit(0); // also kills all existing threads
     }
 
     protected void handleLogOutput(ActionEvent actionEvent) {
@@ -614,6 +407,14 @@ public class AppletMenu extends JPanel {
         statusPanel.setWithTravelTimes(false);
         statusPanel.setWithProgressBar(false);
         statusPanel.reset();
+        canvasPanel.trafficCanvas.roadLineColor = Color.LIGHT_GRAY;
+        canvasPanel.trafficCanvas.roadEdgeColor = Color.DARK_GRAY;
+        canvasPanel.trafficCanvas.backgroundColor = Color.WHITE;
+        canvasPanel.trafficCanvas.initialScale = 0.6;
+//        setScale(initialScale);
+//        for (RoadSegment segment: roadNetwork) {
+//            segment.roadMapping().setRoadColor(Color.WHITE);
+//        }
     }
 
 }
