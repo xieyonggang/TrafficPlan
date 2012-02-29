@@ -146,14 +146,16 @@ public class CCS extends LongitudinalModelBase {
             if ((me.roadSegmentId() <= 7 && counter < 1500) || (me.roadSegmentId() <= 5 && counter < 3000)
                     || (me.roadSegmentId() <= 2 && counter < 9000)) {
                 counter++;
+                me.setSpeed(0);
                 return 0;
             }
         } else if (wave == Waves.TENWAVES) {
-            if ((me.roadSegmentId() <= 9 && counter < 1500) || (me.roadSegmentId() <= 8 && counter < 3000)
-                    || (me.roadSegmentId() <= 7 && counter < 4500) || (me.roadSegmentId() <= 6 && counter < 6000)
-                    || (me.roadSegmentId() <= 5 && counter < 7500) || (me.roadSegmentId() <= 4 && counter < 9000)
-                    || (me.roadSegmentId() <= 3 && counter < 10500) || (me.roadSegmentId() <= 2 && counter < 12000)) {
+            if ((me.roadSegmentId() <= 8 && counter < 1500)
+                    || (me.roadSegmentId() <= 7 && counter < 3000) || (me.roadSegmentId() <= 6 && counter < 4500)
+                    || (me.roadSegmentId() <= 5 && counter < 6000) || (me.roadSegmentId() <= 4 && counter < 7500)
+                    || (me.roadSegmentId() <= 3 && counter < 9000) || (me.roadSegmentId() <= 2 && counter < 10500)) {
                 counter++;
+                me.setSpeed(0);
                 return 0;
             }
         }

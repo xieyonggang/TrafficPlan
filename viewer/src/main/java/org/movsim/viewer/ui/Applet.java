@@ -63,26 +63,27 @@ public class Applet extends JApplet {
 //            }
 //        });
 
-        this.setSize(1280, 1200);
-        this.resize(1280, 1200);
-        canvasPanel.setSize(1280, 1200);
-        canvasPanel.trafficCanvas.setSize(1280, 1200);
+        this.setSize(1200, 1200);
+        this.resize(1200, 1200);
+        canvasPanel.setSize(1200, 1200);
+        canvasPanel.trafficCanvas.setSize(1200, 1200);
 
-        canvasPanel.resized();
-        canvasPanel.repaint();
+      
         
         statusPanel.setWithProgressBar(false);
         simulator.loadScenarioFromXml(projectMetaData.getProjectName(), projectMetaData.getPathToProjectXmlFile());
         canvasPanel.trafficCanvas.setVmaxForColorSpectrum(22);
         canvasPanel.trafficCanvas.setSleepTime(0);
         canvasPanel.trafficCanvas.setxOffset(400);
-        canvasPanel.trafficCanvas.setyOffset(800);
+        canvasPanel.trafficCanvas.setyOffset(1100);
         canvasPanel.trafficCanvas.setDrawSources(false);
         CCS.setWave(Waves.NOWAVE);
         canvasPanel.trafficCanvas.reset();
         canvasPanel.trafficCanvas.start();
         statusPanel.reset();
-
+        
+        canvasPanel.resized();
+        canvasPanel.repaint();
         super.init();
     }
 
