@@ -92,6 +92,8 @@ public class MainFrame extends JFrame {
             canvasPanel.trafficCanvas.start();
         }
         statusPanel.reset();
+
+        canvasPanel.trafficCanvas.pause();
     }
 
     /**
