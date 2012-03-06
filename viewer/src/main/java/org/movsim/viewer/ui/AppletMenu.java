@@ -76,10 +76,9 @@ public class AppletMenu extends JPanel {
                 canvasPanel.trafficCanvas.setVmaxForColorSpectrum(22);
                 canvasPanel.trafficCanvas.setSleepTime(0);
                 canvasPanel.trafficCanvas.setxOffset(400);
-                canvasPanel.trafficCanvas.setyOffset(1100);
+                canvasPanel.trafficCanvas.setyOffset(700);
                 canvasPanel.trafficCanvas.setDrawSources(false);
                 CCS.setWave(Waves.NOWAVE);
-                canvasPanel.repaint();
             }
         });
         scenarioMenu.add(menuItemVasaLoppet);
@@ -102,7 +101,6 @@ public class AppletMenu extends JPanel {
                 canvasPanel.trafficCanvas.setyOffset(1100);
                 canvasPanel.trafficCanvas.setDrawSources(false);
                 CCS.setWave(Waves.THREEWAVES);
-                canvasPanel.repaint();
             }
         });
         scenarioMenu.add(menuItemVasaLoppetThreeWaves);
@@ -125,7 +123,6 @@ public class AppletMenu extends JPanel {
                 canvasPanel.trafficCanvas.setyOffset(1100);
                 canvasPanel.trafficCanvas.setDrawSources(false);
                 CCS.setWave(Waves.TENWAVES);
-                canvasPanel.repaint();
             }
         });
         scenarioMenu.add(menuItemVasaLoppetTenWaves);

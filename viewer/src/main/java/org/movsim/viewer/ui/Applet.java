@@ -68,7 +68,8 @@ public class Applet extends JApplet {
         canvasPanel.setSize(1200, 1200);
         canvasPanel.trafficCanvas.setSize(1200, 1200);
 
-      
+        canvasPanel.resized();
+        canvasPanel.repaint();
         
         statusPanel.setWithProgressBar(false);
         simulator.loadScenarioFromXml(projectMetaData.getProjectName(), projectMetaData.getPathToProjectXmlFile());
@@ -81,9 +82,7 @@ public class Applet extends JApplet {
         canvasPanel.trafficCanvas.reset();
         canvasPanel.trafficCanvas.start();
         statusPanel.reset();
-        
-        canvasPanel.resized();
-        canvasPanel.repaint();
+
         super.init();
     }
 
