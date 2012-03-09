@@ -32,11 +32,9 @@ public class Applet extends JApplet {
 
         setLayout(new BorderLayout());
         initLogger();
-        // final JTextArea logArea = new JTextArea();
-        // LogWindow.setupLog4JAppender(logArea);
-        // LogWindow.turnOffAllLoggers();
         final ResourceBundle resourceBundle = ResourceBundle.getBundle(LocalizationStrings.class.getName());
 
+        String scenario = getParameter("scenario");
         final ProjectMetaData projectMetaData = ProjectMetaData.getInstance();
         projectMetaData.setXmlFromResources(true);
         projectMetaData.setInstantaneousFileOutput(false);
@@ -55,13 +53,6 @@ public class Applet extends JApplet {
         add(canvasPanel, BorderLayout.CENTER);
         add(toolBar, BorderLayout.NORTH);
 
-//        addComponentListener(new ComponentAdapter() {
-//            @Override
-//            public void componentResized(ComponentEvent e) {
-//                canvasPanel.resized();
-//                canvasPanel.repaint();
-//            }
-//        });
 
         this.setSize(1200, 1200);
         this.resize(1200, 1200);

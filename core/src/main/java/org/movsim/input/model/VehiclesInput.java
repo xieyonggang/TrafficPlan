@@ -23,46 +23,38 @@
  * 
  * -----------------------------------------------------------------------------------------
  */
-package org.movsim.input.model.simulation;
 
-import java.util.Map;
+package org.movsim.input.model;
 
-import org.movsim.utilities.ConversionUtilities;
+import java.util.LinkedList;
+import java.util.List;
 
-public class ICMacroData {
+import org.jdom.Element;
+import org.movsim.input.model.vehicle.VehicleInput;
 
-    /** The x. */
-    private final double x;
+public class VehiclesInput {
 
-    /** The rho. Unit: 1/m */
-    private final double rho; 
-
-    /** The speed. Unit: m/s */
-    private final double speed;
-
-    /**
-     * Instantiates a new iC macro data impl.
-     * 
-     * @param map
-     *            the map
-     */
-    public ICMacroData(Map<String, String> map) {
-        this.x = Double.parseDouble(map.get("x"));
-        this.rho = ConversionUtilities.INVKM_TO_INVM*Double.parseDouble(map.get("rho_per_km"));
-        // negative speed value allowed for using equilibrium speed 
-        this.speed = Double.parseDouble(map.get("v"));
+    private final List<VehicleInput> vehicleInput = new LinkedList<VehicleInput>();
+    
+    private final boolean isWriteFundamentalDiagrams;
+    
+    public VehiclesInput(Element elem){
+        this.isWriteFundamentalDiagrams = elem.getAttributeValue("write_fund_diagrams").equals("true") ? true
+              : false;
+        
+        @SuppressWarnings("unchecked")
+        final List<Element> vehicleElements = elem.getChildren();
+        for (final Element vehElem : vehicleElements) {
+            vehicleInput.add(new VehicleInput(vehElem));
+        }
+    }
+    
+    public List<VehicleInput> getVehicleInput() {
+        return vehicleInput;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public double getRho() {
-        return rho;
-    }
-
-    public double getSpeed() {
-        return speed;
+    public boolean isWriteFundamentalDiagrams() {
+        return isWriteFundamentalDiagrams;
     }
 
 }

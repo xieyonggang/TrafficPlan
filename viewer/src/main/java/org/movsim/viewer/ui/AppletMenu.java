@@ -28,13 +28,6 @@ public class AppletMenu extends JPanel {
     private LogWindow logWindow;
     private StatusPanel statusPanel;
 
-    // protected TravelTimeDiagram travelTimeDiagram;
-    // private DetectorsView detectorsDiagram;
-    // private SpatioTemporalView spatioTemporalDiagram;
-    // private FloatingCarsAccelerationView fcAcc;
-    // private FloatingCarsSpeedView fcSpeed;
-    // private FloatingCarsTrajectoriesView fcTrajectories;
-
     public AppletMenu(Applet mainFrame, CanvasPanel canvasPanel, StatusPanel statusPanel, ResourceBundle resourceBundle) {
         this.frame = mainFrame;
         this.canvasPanel = canvasPanel;
@@ -230,10 +223,10 @@ public class AppletMenu extends JPanel {
         cbRoutesSpatioTemporal.setEnabled(false);
         cbRoutesTravelTimes.setEnabled(false);
 
-        cbSpeedLimits.setSelected(GraphicsConfigurationParameters.DRAWSPEEDLIMITS);
-        cbDrawRoadIds.setSelected(GraphicsConfigurationParameters.DRAW_ROADID);
-        cbSources.setSelected(GraphicsConfigurationParameters.DRAWSOURCES);
-        cbSinks.setSelected(GraphicsConfigurationParameters.DRAWSINKS);
+        cbSpeedLimits.setSelected(canvasPanel.trafficCanvas.isDrawSpeedLimits());
+        cbDrawRoadIds.setSelected(canvasPanel.trafficCanvas.isDrawRoadId());
+        cbSources.setSelected(canvasPanel.trafficCanvas.isDrawSources());
+        cbSinks.setSelected(canvasPanel.trafficCanvas.isDrawSinks());
         return viewMenu;
     }
 
@@ -404,7 +397,6 @@ public class AppletMenu extends JPanel {
 
     public void uiDefaultReset() {
         startbuttonToPauseAtScenarioChange();
-        statusPanel.setWithTravelTimes(false);
         statusPanel.setWithProgressBar(false);
         statusPanel.reset();
         canvasPanel.trafficCanvas.roadLineColor = Color.LIGHT_GRAY;
