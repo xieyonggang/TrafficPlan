@@ -126,8 +126,8 @@ public class TrafficCanvas extends SimulationCanvasBase implements SimulationRun
 
     // colors
     protected Color roadColor;
-    protected Color roadEdgeColor;
-    protected Color roadLineColor;
+    public Color roadEdgeColor;
+    public Color roadLineColor;
     protected Color sourceColor;
     protected Color sinkColor;
 
@@ -539,13 +539,13 @@ public class TrafficCanvas extends SimulationCanvasBase implements SimulationRun
      * @param g
      */
     private void drawRoadSegmentLines(Graphics2D g, RoadMapping roadMapping) {
-<<<<<<< HEAD
-
-        final float lineWidth = 1.0f; // a bit large, but ensures they are visible
-        final float lineLength = 5.0f;
-        final float gapLength = 0.0f; // TODO rg modified for vasaloppet old= 15
-=======
->>>>>>> master
+//<<<<<<< HEAD
+//
+//        final float lineWidth = 1.0f; // a bit large, but ensures they are visible
+//        final float lineLength = 5.0f;
+//        final float gapLength = 0.0f; // TODO rg modified for vasaloppet old= 15
+//=======
+//>>>>>>> master
         final float dashPhase = (float) (roadMapping.roadLength() % (lineLength + gapLength));
 
         final Stroke lineStroke = new BasicStroke(lineWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER, 10.0f,

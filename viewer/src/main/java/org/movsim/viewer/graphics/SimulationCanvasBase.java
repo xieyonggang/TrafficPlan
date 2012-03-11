@@ -72,7 +72,7 @@ public abstract class SimulationCanvasBase extends Canvas {
     private int bufferWidth;
     protected boolean backgroundChanged;
     // default background color
-    protected Color backgroundColor;
+    public Color backgroundColor;
     // scale factor pixels/m, smaller value means a smaller looking view
     double scale;
     int xOffset = 0;

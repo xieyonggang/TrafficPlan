@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 
 import org.movsim.simulator.vehicles.longitudinalmodel.acceleration.CCS;
 import org.movsim.simulator.vehicles.longitudinalmodel.acceleration.CCS.Waves;
-import org.movsim.viewer.graphics.GraphicsConfigurationParameters;
 import org.movsim.viewer.util.SwingHelper;
 
 @SuppressWarnings("synthetic-access")
@@ -402,7 +401,6 @@ public class AppletMenu extends JPanel {
         canvasPanel.trafficCanvas.roadLineColor = Color.LIGHT_GRAY;
         canvasPanel.trafficCanvas.roadEdgeColor = Color.DARK_GRAY;
         canvasPanel.trafficCanvas.backgroundColor = Color.WHITE;
-        canvasPanel.trafficCanvas.initialScale = 0.6;
 //        setScale(initialScale);
 //        for (RoadSegment segment: roadNetwork) {
 //            segment.roadMapping().setRoadColor(Color.WHITE);

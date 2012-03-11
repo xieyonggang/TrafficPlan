@@ -69,7 +69,6 @@ public class MainFrame extends JFrame {
 
         final Properties properties = loadProperties();
         TrafficCanvas.setProperties(properties);
-        defaultScenario = Scenario.valueOf(properties.getProperty("defaultScenario"));
 
         canvasPanel = new CanvasPanel(resourceBundle, simulator);
         statusPanel = new StatusPanel(resourceBundle, simulator);
