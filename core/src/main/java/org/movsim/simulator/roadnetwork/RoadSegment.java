@@ -710,7 +710,9 @@ public class RoadSegment implements Iterable<Vehicle> {
                 variableMessageSign.cancel(vehicle, this);
             }
         }
-        variableMessageSigns.remove(variableMessageSign);
+        if (variableMessageSigns != null && variableMessageSign != null) {
+            variableMessageSigns.remove(variableMessageSign);
+        }
     }
 
     /**
