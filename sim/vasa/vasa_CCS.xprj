@@ -184,13 +184,6 @@
                     <MacroIC position="10" density_per_km="390" speed="0" />
                 </InitialConditions>
             </Road>
-            <Road id="11">
-                <!--             <Slopes> -->
-                <!--                 <Slope position="10" gradient="0.03" /> -->
-                <!--                 <Slope position="100" gradient="-0.04" /> -->
-                <!--                 <Slope position="140" gradient="0.02" /> -->
-                <!--             </Slopes> -->
-            </Road>
             <Road id="13">
                 <!--             <Slopes> -->
                 <!--                 <Slope position="1" gradient="0.10" /> -->
